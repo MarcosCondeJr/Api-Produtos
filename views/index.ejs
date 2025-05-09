@@ -9,11 +9,16 @@
 </head>
 <body>
     <div class="container-fluid p-3 bg-primary text-white text-center">
-        <h1>ProdutosDix</h1>
-        <p>loja de produto com preços incriveis</p> 
+        <div class="row">
+            <h1>ProdutosDix</h1>
+            <p>loja de produto com preços incriveis</p>
+        </div>
     </div>
     <div class="container p-1 mt-4">
-        <h1>Lista de Produtos</h1>
+        <div class="d-flex align-items-center p-3 mr-1 justify-content-between">
+            <h1>Lista de Produtos</h1>
+            <a class="btn btn-success btn-lg" href="/novoProduto">Cadastrar</a>
+        </div>
         <div class="row">
             <% produtos.forEach(produto=>{ %>
                 <div class="col-md-4 mb-4">

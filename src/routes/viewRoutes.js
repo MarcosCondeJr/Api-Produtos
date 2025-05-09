@@ -11,7 +11,7 @@ router.get('/', async (req,res)=>{
     }
 })
 
-router.get('/novoProduti', (req, res) => {
+router.get('/novoProduto', (req, res) => {
     res.render('formularioProduto'); // nome do arquivo EJS, Pug ou outro que exibe o formulário
 });
 
