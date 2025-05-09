@@ -1,13 +1,13 @@
 {
   "name": "mvc",
   "version": "1.0.0",
-  "description": "Projeto Node com Sequelizer e padrao MVC",
+  "description": "Projeto Node com Mongoose e padrao MVC",
   "main": "app.js",
   "scripts": {
     "dev": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Caio Barreto",
+  "author": "Marcos Conde",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^2.2.0",
