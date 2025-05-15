@@ -75,7 +75,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 mb-4">
                                         <label for="editarImagem" class="form-label">Imagem</label>
-                                        <input type="url" class="form-control" name="editarImagem" id="editarImagem">
+                                        <input type="file" class="form-control" name="editarImagem" id="editarImagem" accept="imagem/*">
                                     </div>
                                 </div>
                         </div>
@@ -113,7 +113,7 @@
                 document.getElementById('editarId').value = produto._id;
                 document.getElementById('editarNome').value = produto.nome;
                 document.getElementById('editarPreco').value = produto.preco;
-                document.getElementById('editarImagem').value = produto.imagem;
+                document.getElementById('editarImagem').files[0] = produto.imagem;
 
                 const modal = new bootstrap.Modal(document.getElementById('editModal'));
                 modal.show();
@@ -125,12 +125,18 @@
                 const id = document.getElementById('editarId').value;
                 const nome = document.getElementById('editarNome').value;
                 const preco = parseFloat(document.getElementById('editarPreco').value);
-                const imagem = document.getElementById('editarImagem').value;
+                const imagem = document.getElementById('editarImagem');
+
+                let imagemBase64 = null
+
+                if (imagem.files && imagem.files[0]) {
+                    imagemBase64 = await toBase64(imagem.files[0]);
+                }
 
                 const res = await fetch(`/produtos/${id}`,{
                     method: 'PUT',
                     headers: {'Content-Type':'application/json'},
-                    body:JSON.stringify({id,nome,preco,imagem})
+                    body:JSON.stringify({id,nome,preco,imagem: imagemBase64})
                 });
 
                 if (res.ok) {
@@ -141,6 +147,15 @@
                     alert('Erro ao editar o produto!');
                 }
             })
+
+            function toBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error)
+                })
+            }
 
         </script>
 
