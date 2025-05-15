@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-sm-12 mb-4">
                     <label for="imagem" class="form-label required">Imagem</label>
-                    <input type="url" class="form-control" name="imagem" id="imagem">
+                    <input type="file" class="form-control" name="imagem" id="imagem" accept="imagem/*">
                 </div>
             </div>
             <button type="submit" class="btn btn-success" id="cad-categoria-btn">Cadastrar</button>
@@ -41,12 +41,18 @@
             e.preventDefault()
             const nome = document.getElementById('nome').value;
             const preco = parseFloat(document.getElementById('preco').value);
-            const imagem = document.getElementById('imagem').value;
+            const imagem = document.getElementById('imagem');
+
+            let imagemBase64 = null;
+
+            if (imagem.files && imagem.files[0]) {
+                imagemBase64 = await toBase64(imagem.files[0]);
+            }
 
             const res = await fetch('/produtos',{
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
-                body:JSON.stringify({nome,preco,imagem})
+                body:JSON.stringify({nome,preco,imagem: imagemBase64})
             })
 
             if(res.ok){
@@ -56,6 +62,15 @@
                 alert("Erro ao cadastrar o produto.")
             }
         })
+
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error)
+            })
+        }
     </script>
 </body>
 </html>
