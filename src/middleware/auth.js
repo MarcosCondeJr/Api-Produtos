@@ -16,3 +16,5 @@ function autenticarToken(req, res, next) {
         next();
     })
 }
+
+module.exports = autenticarToken;

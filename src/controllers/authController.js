@@ -8,7 +8,7 @@ exports.login = async (req, res) => {
     if (!login || !senha ) return res.status(404).send({error: "Login e senha são obrigatórios."});
     
     try {
-        const usuario = await new Usuario.findOne({login, senha});
+        const usuario = await Usuario.find({login, senha});
 
         if (!usuario) return res.status(401).json({error:"Credenciais inválidas!"});
 

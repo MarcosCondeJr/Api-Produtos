@@ -16,17 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/auth',rotasAuth)
 app.use('/usuario',rotasUsuario)
-app.use('/produtos',rotasProduto)
+app.use('/produtos', autenticarToken, rotasProduto)
 app.use('/', rotasView)
-
-app.use('/listarProdutos', autenticarToken, (req, res) => {
-    try {
-
-    } catch (err) {
-        console.error(err.message);
-        res.status(403).json({error: "Erro na autenticação"});
-    }
-})
 
 app.set('view engine','ejs')
 
